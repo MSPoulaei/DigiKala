@@ -17,14 +17,12 @@ namespace DigiKala.DataAccessLayer.Entities
         public string Mobile { get; set; }
         [Display(Name ="کلمه عبور")]
         [Required(ErrorMessage ="نباید بدون مقدار باشد")]
-        [MaxLength(50,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
+        [JoinedDate(100,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
         public string Password { get; set; }
         [Display(Name ="کد ملی")]
-        [Required(ErrorMessage ="نباید بدون مقدار باشد")]
         [MaxLength(10,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
         public string Code { get; set; }
         [Display(Name ="نام و نام خانوادگی")]
-        [Required(ErrorMessage ="نباید بدون مقدار باشد")]
         [MaxLength(100,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
         public string FullName { get; set; }
         [Display(Name ="کد فعال سازی")]
@@ -33,6 +31,10 @@ namespace DigiKala.DataAccessLayer.Entities
         public string ActivationCode { get; set; }
         [Display(Name = "فعال")]
         public bool IsActive { get; set; }
+        [Display(Name = "تاریخ عضویت")]
+        [Required(ErrorMessage = "نباید بدون مقدار باشد")]
+        [MaxLength(10, ErrorMessage = "مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
+        public string JoinedDate { get; set; }
         [ForeignKey("RoleId")]
         public virtual Role Role { get; set; }
 
