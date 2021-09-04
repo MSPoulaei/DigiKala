@@ -41,6 +41,8 @@ namespace DigiKala
             services.AddDbContext<DigiKalaDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DigiKalaDbConnection")));
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +52,7 @@ namespace DigiKala
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMvcWithDefaultRoute();
             app.UseAuthentication();
             app.UseRouting();
             app.UseStaticFiles();
