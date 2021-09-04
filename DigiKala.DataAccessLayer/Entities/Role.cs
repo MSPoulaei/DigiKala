@@ -15,5 +15,6 @@ namespace DigiKala.DataAccessLayer.Entities
         [MaxLength(20,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
         public string  Name { get; set; }
         public virtual ICollection<RolePermissions> RolePermissions{ get; set; }
+        public virtual ICollection<User> Users{ get; set; }
     }
 }
