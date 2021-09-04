@@ -13,7 +13,6 @@
     <Folder Include="wwwroot\images\ads\" />
     <Folder Include="wwwroot\images\users\" />
     <Folder Include="wwwroot\images\products\" />
-    <Folder Include="wwwroot\images\site\" />
   </ItemGroup>
 
   <ItemGroup>
