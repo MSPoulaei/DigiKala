@@ -17,7 +17,7 @@ namespace DigiKala.DataAccessLayer.Entities
         public string Mobile { get; set; }
         [Display(Name ="کلمه عبور")]
         [Required(ErrorMessage ="نباید بدون مقدار باشد")]
-        [JoinedDate(100,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
+        [MaxLength(100,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
         public string Password { get; set; }
         [Display(Name ="کد ملی")]
         [MaxLength(10,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
