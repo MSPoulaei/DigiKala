@@ -2,7 +2,7 @@
 
 <html lang="fa">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>@ViewBag.Title</title>
     <link href="~/css/bootstrap.rtl.css" rel="stylesheet" />
     <link href="~/css/account.css" rel="stylesheet" />
@@ -10,10 +10,18 @@
 <body>
     <div class="container-fluid">
         <div>
-            @RenderBody()
+            <div class="row mt-30">
+                <img src="~/images/site/dk.svg" class="img-fluid m-auto logo" />
+            </div>
+            <div class="row mt-50">
+                <div class="col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-10 offset-1 box-login">
+                    @RenderBody()
+                </div>
+            </div>
         </div>
     </div>
     <script src="~/js/bootstrap.js"></script>
     <script src="~/js/jquery-3.6.0.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
