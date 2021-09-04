@@ -1,3 +1,5 @@
+using DigiKala.Core.Interfaces;
+using DigiKala.Core.Services;
 using DigiKala.DataAccessLayer.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +40,7 @@ namespace DigiKala
             });
             services.AddDbContext<DigiKalaDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DigiKalaDbConnection")));
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
