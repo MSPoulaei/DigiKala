@@ -10,5 +10,6 @@ namespace DigiKala.Core.Interfaces
         bool AddUser(User user);
         bool ExistsMobileNumber(string mobileNumber);
         int GetMaxRoleId();
+        bool ActivateUser(string activationCode, string mobileNumber);
     }
 }
