@@ -26,7 +26,7 @@ namespace DigiKala.DataAccessLayer.Entities
         [MaxLength(100,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
         public string FullName { get; set; }
         [Display(Name ="کد فعال سازی")]
-        [Required(ErrorMessage ="نباید بدون مقدار باشد")]
+        //[Required(ErrorMessage ="نباید بدون مقدار باشد")]
         [MaxLength(6,ErrorMessage ="مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
         public string ActivationCode { get; set; }
         [Display(Name = "فعال")]

@@ -3,14 +3,16 @@ using DigiKala.DataAccessLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigiKala.DataAccessLayer.Migrations
 {
     [DbContext(typeof(DigiKalaDbContext))]
-    partial class DigiKalaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210905133946_Mig-ActivationCodeIsNullable")]
+    partial class MigActivationCodeIsNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
