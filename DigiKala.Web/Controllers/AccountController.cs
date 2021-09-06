@@ -51,8 +51,28 @@ namespace DigiKala.Web.Controllers
             };
             _accountRepository.AddUser(user);
             //SMS
+            MessageSender.SMS(user.Mobile, "سلام. به فروشگاه داروخانه دکتر پولایی خوش آمدید\n" + "کد فعالسازی:" + user.ActivationCode);
             //Activate
+            return View(nameof(Activate),new ActivateViewModel() { Mobile=user.Mobile});
+        }
+        public ActionResult Activate()
+        {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Activate(ActivateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            if (_accountRepository.ActivateUser(model.ActivationCode, model.Mobile))
+            {
+                //Go To Login
+                return RedirectToAction(nameof(Index), "Home");
+            }
+            ModelState.AddModelError("ActivationCode", "کد فعال سازی معتبر نمی باشد");
+            return View(model);
         }
     }
 }
