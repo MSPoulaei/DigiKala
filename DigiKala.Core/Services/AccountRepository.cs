@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static DigiKala.Core.Interfaces.IAccountRepository;
 
 namespace DigiKala.Core.Services
 {
@@ -21,7 +22,8 @@ namespace DigiKala.Core.Services
         {
             User user = _context.Users.FirstOrDefault(u =>
             u.ActivationCode == activationCode &&
-            u.Mobile == mobileNumber && !u.IsActive);
+            u.Mobile == mobileNumber &&
+            !u.IsActive);
 
             if (user == null)
             {
@@ -47,11 +49,87 @@ namespace DigiKala.Core.Services
             }
         }
 
-        public bool ExistsMobileNumber(string mobileNumber)
+        public bool ExistsMobileNumber(string mobile)
         {
-            return _context.Users.Any(u => u.Mobile == mobileNumber);
+            return _context.Users.Any(u => u.Mobile == mobile);
+        }
+
+        public string ForgetPasswordActivationCode(string Mobile)
+        {
+            User user = _context.Users.FirstOrDefault(u => u.Mobile == Mobile);
+            if (user == null)
+            {
+                return "notfound";
+            }
+            try
+            {
+                user.ActivationCode = CodeGenerators.ActivationCode();
+                _context.SaveChanges();
+                return user.ActivationCode;
+            }
+            catch (Exception)
+            {
+                return "notsuccessful";
+            }
         }
 
         public int GetMaxRoleId() => _context.Roles.Max(r => r.Id);
+
+        public bool IsActive(string mobile)
+        {
+            return _context.Users.Any(u => u.Mobile == mobile && u.IsActive);
+        }
+
+        public User LoginUser(string Mobile, string HashedPassword)
+        {
+            return _context.Users
+                .FirstOrDefault(u => u.Mobile == Mobile && u.Password == HashedPassword);
+        }
+
+        public string RegenerateActivationCode(string Mobile,bool IsActiveIncluded=true)
+        {
+            User user=_context.Users
+                .FirstOrDefault(u => u.Mobile == Mobile);
+            if (user == null)
+            {
+                return "notfound";
+            }
+            
+            if(IsActiveIncluded && user.IsActive)
+            {
+                return "active";
+            }
+            try
+            {
+                user.ActivationCode = CodeGenerators.ActivationCode();
+                _context.SaveChanges();
+                return user.ActivationCode;
+            }
+            catch (Exception)
+            {
+                return "notsuccessful";
+            }
+            
+        }
+        public ResetPasswordResults ResetPassword(string Mobile, string ActivationCode, string HashedNewPassword)
+        {
+            User user = _context.Users.FirstOrDefault(u => u.Mobile==Mobile);
+            if (user==null)
+            {
+                return ResetPasswordResults.UserNotFound;
+            }
+            else if (user.ActivationCode!=ActivationCode)
+            {
+                return ResetPasswordResults.ActivationCodeNotEqual;
+            }
+            else if (!user.IsActive)
+            {
+                return ResetPasswordResults.UserIsNotActive;
+            }
+            user.Password = HashedNewPassword;
+            user.ActivationCode = null;
+            _context.SaveChanges();
+            return ResetPasswordResults.SuccessfullyChanged;
+        }
     }
 }
