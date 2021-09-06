@@ -52,8 +52,8 @@ namespace DigiKala
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMvcWithDefaultRoute();
             app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
             app.UseRouting();
             app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
