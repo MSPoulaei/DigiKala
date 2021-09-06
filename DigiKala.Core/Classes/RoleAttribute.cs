@@ -1,5 +1,6 @@
 ﻿using DigiKala.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,12 @@ namespace DigiKala.Core.Classes
                 int roleId = userRepository.GetUserRoleId(username);
                 if (!userRepository.ExistsPermission(_permissionId, roleId))
                 {
-                    //Go to Login
+                    context.Result = new RedirectResult("/Account/Login");
                 }
             }
             else
             {
-                //#TODO: Go to Login
+                context.Result = new RedirectResult("/Account/Login");
             }
         }
     }
