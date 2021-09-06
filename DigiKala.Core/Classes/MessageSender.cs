@@ -6,7 +6,7 @@ namespace DigiKala.Core.Classes
 {
     public class MessageSender
     {
-        public bool SMS(string ReceiverNumber, string MessageBody)
+        public static bool SMS(string ReceiverNumber, string MessageBody)
         {
             var sender = "1000596446";
             //var receptor = ReceiverNumber;//"09116863556"
