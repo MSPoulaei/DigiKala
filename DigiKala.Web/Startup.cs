@@ -34,8 +34,8 @@ namespace DigiKala
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             }).AddCookie(options =>
             {
-                options.LoginPath = "/*Path to Login Page*/";
-                options.LogoutPath = "/*Path to Sign Out Page*/";
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
             });
             services.AddDbContext<DigiKalaDbContext>(options =>
