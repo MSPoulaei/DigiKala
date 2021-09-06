@@ -11,11 +11,13 @@ namespace DigiKala.Core.ViewModels
         [Required(ErrorMessage = "نباید بدون مقدار باشد")]
         [Phone(ErrorMessage ="فقط عدد میتوانید وارد کنید")]
         [MaxLength(11, ErrorMessage = "مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
+        [MinLength(11, ErrorMessage = "مقدار {0} نباید کمتر از {1} کاراکتر باشد")]
         public string Mobile { get; set; }
         [Display(Name = "کد فعال سازی")]
         [Required(ErrorMessage = "نباید بدون مقدار باشد")]
         [Phone(ErrorMessage ="فقط عدد میتوانید وارد کنید")]
         [MaxLength(6, ErrorMessage = "مقدار {0} نباید بیشتر از {1} کاراکتر باشد")]
+        [MinLength(6, ErrorMessage = "مقدار {0} نباید کمتر از {1} کاراکتر باشد")]
         public string ActivationCode { get; set; }
     }
 }
