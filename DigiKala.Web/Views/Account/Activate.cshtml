@@ -17,6 +17,9 @@
         <span asp-validation-for="Mobile" class="text-danger validation-error"></span>
     </div>
     <div class="form-group">
+        <h6 class="mt-2"><a href="javascript:void(0);" onclick="resendSMS()">ارسال مجدد پیامک فعالسازی</a></h6>
+    </div>
+    <div class="form-group">
         <input asp-for="ActivationCode" class="form-control mt-2" placeholder="کد فعال سازی" />
         <span asp-validation-for="ActivationCode" class="text-danger validation-error"></span>
     </div>
@@ -25,7 +28,57 @@
     </div>
 </form>
 
-
+@section Styles{
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+}
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        })
+        function resendSMS() {
+            $.ajax({
+                url: "/Account/ResendSMS",
+                type: "Post",
+                data: {
+                    Mobile: $("#Mobile").val()
+                }
+            }).done(function (res) {
+                if (res == 0) {//successful
+                    $("#Mobile").prop("disabled", true);
+                    toastr["success"]("پیامک فعالسازی با موفقیت به شماره " + $("#Mobile").val() + "ارسال گردید");
+                }
+                else if (res == 1) {//notfound
+                    toastr["warning"]("کاربر یافت نشد");
+                }
+                else if (res == 2) {//active
+                    toastr["info"]("کاربر فعال است. نیاز به فعالسازی نیست. برای ورود کلیک کنید" + `<br /><br /><a href="/Account/Login/` + $("#Mobile").val() +`"><button type="button" class="btn clear btn-lg btn-primary">ورود به حساب کاربری</button></a>`);
+                }
+                else if (res == 3) {//notsuccessful
+                    toastr["error"]("عملیات ناموفق بود");
+                }
+
+            });
+        }
+
+    </script>
 }
+
